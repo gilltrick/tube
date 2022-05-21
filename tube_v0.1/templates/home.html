@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoadBar</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/homeStyle.css">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/logo.png"></a>
+
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="#home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+</header>
+
+<!--agency gelbaer starts-->
+<section class="home" id="home">
+    <div class="SearchContainer">
+        <form action="/search" method="post">
+            <input type="text" name="keyWords" maxlength="60" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    {%if resultCount > 0%}
+    <div class="videoArea">
+        <ul class="container inline-b">
+        {% for i in range(resultCount)%}
+        <li class="item inline-b-item">
+            {%if mioList[i].data == "" %}
+            <form action="/playVideo" method="post">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="videoUrl">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <video>
+                        <source src="{{mioList[i].videoUrl}}" type="video/mp4">
+                    </video>
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr><td class="ratingText">{{mioList[i].rating}} STARS</td><td class="durationText">Duration: {{mioList[i].videoDuration}} sec</td></tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].data == "pornhub"%}
+            <form action="/redirect" method="post">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="url">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr><td class="ratingText">{{mioList[i].rating}} STARS</td><td class="durationText">Duration: {{mioList[i].videoDuration}} sec</td></tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].data == "fapster"%}
+            <form action="/redirect" method="post">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="url">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr><td class="ratingText">{{mioList[i].rating}} STARS</td><td class="durationText">Duration: {{mioList[i].videoDuration}} sec</td></tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+        </li>
+        {%endfor%}
+        </ul>
+        </div>
+    </div>
+    {%endif%}
+    {%if mioList|length >= 33%}
+    <div class="pageNavigation">
+        {{pageCounter}} of {{maxPageCount}}
+        <div class="navigationButton">
+            {%if pageCounter >=2%}
+            <form action="/page" method="post">
+                <input hidden value="{{pageCounter}}" name="pageCounter">
+                <input hidden value="{{keyWords}}" name="keyWords">
+                <input hidden value="prevPage" name="command">
+                <button type="submit" class="prevPageButton"></button>
+            </form>
+            {%endif%}
+            {%if pageCounter < maxPageCount%}
+            <form action="/page" method="post">  
+                <input hidden value="{{pageCounter}}" name="pageCounter">
+                <input hidden value="{{keyWords}}" name="keyWords">  
+                <input hidden value="nextPage" name="command">
+                <button type="submit" class="nextPageButton"></button>
+            </form>
+            {%endif%}
+        </div>
+    </div>
+    {%endif%}
+</section>
+
+<!-- footer section starts  -->
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+</html>
