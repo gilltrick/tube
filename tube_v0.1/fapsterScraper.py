@@ -65,7 +65,7 @@ def ExtractDataFromSite(_url):
         videoUrl = match.group(1)
         videoTitle = match.group(2)
         videoDuration = match.group(9)
-        rating = match.group(5)#da ist ein fehler mit der gruppenzuweisung
+        rating = match.group(15)
         thumbnailPath = match.group(3)
         previewLink = match.group(5)
         if MetaInformationObejctDuplication(videoUrl) == False:
