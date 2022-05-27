@@ -36,7 +36,7 @@ What is nJoyPorn?<br>
 <br>
     b) Analytical database<br>
         This database is to analyse what happens on your tube<br>
-        Actor data like charts, highscore, viewcount, ratings<br>
+        -Actor data like charts, highscore, viewcount, ratings<br>
         -Categorie data like charts, highscore, viewcount, ratings<br>
         -Video data like charts, highscore, viewcount, ratings<br>
     <br>
