@@ -3,7 +3,6 @@ from pathlib import Path
 
 
 rootPath = os.getcwd()
-rndList = []
 
 def Run():
     command = input("Enter command: [-install]")
