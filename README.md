@@ -91,7 +91,7 @@ What is nJoyPorn?<br>
         -serach by dictionary<br>
         -search by combination of both<br>
         -search in different depth steps<br>
-
+<br>
 Get started
 
     #Install the app and downloading rquirements from requirements.txt
