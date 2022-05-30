@@ -17,6 +17,7 @@ What is nJoyPorn?<br>
     Search page<br>
     Result page<br>
     Video-Player page<br>
+    Dashboard page<br>
 <br>
 2) Databases<br>
     a) Main database<br>
@@ -96,7 +97,9 @@ Get started
 
     #Install the app and downloading rquirements from requirements.txt
     python setup.py
-
+    #Create an admin account
+    Enter command: yes
+    Enter credentials to create an admin account for the web panel (www.serveraddress.com/webgui)
     #Run the server
     python njoyporn.py
 
