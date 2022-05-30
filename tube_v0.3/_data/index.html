@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/homeStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="#home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+</header>
+
+<!--agency gelbaer starts-->
+<section class="home" id="home">
+    <div class="overlayContainer">
+        <div class="checkAge">
+            <img src="/static/images/Logo_huge.png">
+            <div class="infoText">
+                The following content is not suitable for persons under the age of 18.
+                By clicking on the "Confirm-Age" button below, you confirm that you are
+                older than 18 years.
+            </div>
+            <button title="confirmAgeButton" class="confirmAgeButton" type="button">Confirm Age</button>
+        </div>
+    </div>
+    <div class="SearchContainer">
+        <form action="/search" method="post">
+            <input type="text" name="keyWords" maxlength="60" placeholder="Search trough {{totalRecordsCount}} videos">
+            <button type="submit"><img src="/static/images/icons/searchIcon.png"></button>
+        </form>
+    </div>
+    {%if resultCount == 0%}
+    <div class="infoContainer">
+        <dic class="popularCategoriesContainer">
+            <ul class="container inline-b">
+                <div class="titleText">POPULAR CATEGORIES</div>
+            {%for categorie in popularCategoriesList%}
+            <li class="item inline-b-item">
+            <form action="/search" method="post">
+                <input hidden value="{{categorie}}" name="keyWords">
+                <button type"submit">
+                    <div class="categorieContainer">
+                        {{categorie}}
+                    </div>
+                </button>
+            </form>
+            </li>
+            {%endfor%}
+            </ul>
+        </div>
+    </div>
+    <div class="infoContainer">
+        <dic class="popularPornStarsContainer">
+            <ul class="container inline-b">
+                <div class="titleText">POPULAR PORNSTARS</div>
+            {%for pornstar in popularPornStarList%}
+            <li class="item inline-b-item">
+            <form action="/search" method="post">
+                <input hidden value="{{pornstar}}" name="keyWords">
+                <button type"submit">
+                    <div class="ponrStarContainer">
+                        {{pornstar}}
+                    </div>
+                </button>
+            </form>
+            </li>
+            {%endfor%}
+            </ul>
+        </div>
+    </div>
+    <div class="infoContainer">
+        <div class="introductionContainer">
+            <div class="titleText">
+                Introduction
+            </div>
+            <div class="mainText">
+                <p>This is a simple search engine for free porn in the web.</p>
+                <p>Enter in the search bar what your are looking for.</p>
+                <p>Just enjoy porn :P</p>
+            </div>
+            <img src="/static/images/balken.png">
+        </div>
+    </div>
+    {%endif%}
+    {%if resultCount > 0%}
+    <div class="videoArea">
+        <ul class="container inline-b">
+        {% for i in range(resultCount)%}
+        <li class="item inline-b-item">
+            {%if mioList[i].origin == "njoyporn" %}
+            <form action="/playVideo" method="post" target="_blank">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="videoUrl">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}" type="video/mp4">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr>
+                            <td class="ratingText">{{mioList[i].rating}} STARS</td>
+                            <td class="durationText">Duration: {{mioList[i].videoDuration}}</td>
+                            <td class="vote">
+                                <form action="/downVote" method="post">
+                                    <input hidden value="{{mioList[i].id}}" name="downVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                </form>
+                                <form action="/upVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="upVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].origin == "free" %}
+            <form action="/playVideo" method="post" target="_blank">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="videoUrl">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}" type="video/mp4">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr>
+                            <td class="ratingText">{{mioList[i].rating}} STARS</td>
+                            <td class="durationText">Duration: {{mioList[i].videoDuration}}</td>
+                            <td class="vote">
+                                <form action="/downVote" method="post">
+                                    <input hidden value="{{mioList[i].id}}" name="downVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                </form>
+                                <form action="/upVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="upVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].origin == "pornhub"%}
+            <form action="/redirect" method="post" target="_blank">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="url">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr>
+                            <td class="ratingText">{{mioList[i].rating}} %</td>
+                            <td class="durationText">Duration: {{mioList[i].videoDuration}}</td>
+                            <td class="vote">
+                                <form action="/downVote" method="post">
+                                    <input hidden value="{{mioList[i].id}}" name="downVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                </form>
+                                <form action="/upVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="upVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].origin == "fapster"%}
+            <form action="/redirect" method="post"  target="_blank">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="url">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr>
+                            <td class="ratingText">{{mioList[i].rating}} %</td>
+                            <td class="durationText">Duration: {{mioList[i].videoDuration}}</td>
+                            <td class="vote">
+                                <form action="/downVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="downVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                </form>
+                                <form action="/upVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="upVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+            {%if mioList[i].origin == "hotexporntoons"%}
+            <form action="/redirect" method="post"  target="_blank">
+                <input type="hidden" value="{{mioList[i].videoUrl}}" name="url">
+                <button type="submit" class="videoLinkBtn">
+                <div class="videoContainer">
+                    <img src="{{mioList[i].thumbnailPath}}">
+                    <table>
+                        <tr><td class="titleText">{{mioList[i].videoTitle}}</td></tr>
+                    </table>
+                        <table>
+                        <tr>
+                            <td class="ratingText">{{mioList[i].rating}} %</td>
+                            <td class="durationText">Duration: {{mioList[i].videoDuration}}</td>
+                            <td class="vote">
+                                <form action="/downVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="downVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                </form>
+                                <form action="/upVote" method="post" target="_blank">
+                                    <input hidden value="{{mioList[i].id}}" name="upVote">
+                                    <button type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button>
+            </form>
+            {%endif%}
+        </li>
+        {%endfor%}
+        </ul>
+        </div>
+    </div>
+    {%endif%}
+    {%if mioList|length == 32%}
+    <br>
+    <div class="SearchContainer">
+        <form action="/search" method="post">
+            <input type="text" name="keyWords" maxlength="60" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    {%endif%}
+
+    
+    <div class="pageNavigation">
+        {{pageCounter}} of {{maxPageCount}}
+        <div class="navigationButton">
+            {%if mioList|length > 0%}
+            {%if pageCounter >1%}
+            <form action="/page" method="post">
+                <input hidden value="{{pageCounter}}" name="pageCounter">
+                <input hidden value="{{keyWords}}" name="keyWords">
+                <input hidden value="prevPage" name="command">
+                <button type="submit" class="prevPageButton"></button>
+            </form>
+            {%endif%}
+            {%endif%}
+        {%if mioList|length >= 33%}
+            {%if pageCounter < maxPageCount%}
+            <form action="/page" method="post">  
+                <input hidden value="{{pageCounter}}" name="pageCounter">
+                <input hidden value="{{keyWords}}" name="keyWords">  
+                <input hidden value="nextPage" name="command">
+                <button type="submit" class="nextPageButton"></button>
+            </form>
+            {%endif%}
+        </div>
+    </div>
+    {%endif%}
+</section>
+
+<!-- footer section starts  -->
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/impressum">Impressum</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+<script>
+    const confirmAge = document.querySelector(".confirmAgeButton");
+    const overlayContainer = document.querySelector(".overlayContainer");
+    const header = document.querySelector("header");
+    const checkAge = document.querySelector(".checkAge");
+    const SearchContainer = document.querySelector(".SearchContainer");
+    function ConfirmAge(){
+        checkAge.style.display = "none";
+        overlayContainer.style.display = "none";
+        SearchContainer.style.display = "inline-block";
+      }
+      confirmAge.addEventListener('click', ConfirmAge);
+</script>
+</html>
