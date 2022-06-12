@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn | {{userPageObject.nickName}}</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/userPageStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+    {%if isLogedIn == True%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/userAccount">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    {%endif%}
+    {%if isLogedIn == False%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+    {%endif%}
+</header>
+
+<section class="home" id="home">
+    <div class="profileData">
+        <div class="top">
+            <div class="profilePicture">
+                <div class="galeryPictures">
+                {%for picturePath in userPageObject.picturePathList%}
+                <img src="{{picturePath}}">
+                {%endfor%}
+                </div> 
+                <form action="/messaging" method="post">
+                    <input hidden value="{{userPageObject.userId}}" name="id">
+                    <button type="submit">Write Me</button>
+                </form>
+                <div class="galery">
+                    <button class="prevPic" onclick="plusSlides(-1)"><h1><</h1></button>
+                    <button class="nextPic" onclick="plusSlides(1)"><h1>></h1></button>
+                </div>
+
+            </div>
+            <div class="data">
+                <div class="row">
+                    <div class="name">
+                        Name: 
+                    </div>
+                    <div class="value">
+                        {{userPageObject.nickName}} 
+                    </div>
+                    <div class="name">
+                        Videos: 
+                    </div>
+                    <div class="value">
+                        {{userPageObject.videoList|length}} 
+                    </div>
+                    <div class="name">
+                        Follower: 
+                    </div>
+                    <div class="value">
+                        3.2 k 
+                    </div>
+                    <form action="/followUser" method="post">
+                        <input hidden value="{{userPageObject.userId}}" name="id">
+                        <button class="followButton">Follow <br>{{userPageObject.nickName}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="profileText">
+                {{userPageObject.userDiscription}}
+            </div>
+        </div>
+    </div>
+    <div class="contentArea">
+        <div class="top">
+            <div class="catchPhrase">
+                <div class="titleText">
+                    {{userPageObject.nickName}}
+                </div>
+                <div class="contentText">
+                    {{userPageObject.catchPhrase}} 
+                </div>
+            </div>
+            <div class="dropDownMenu">
+
+                    <label for="categorie">Chose Categorie</label>
+                    <ul class="main_ul">
+                        <li class="main_li">
+                            Categories ▼
+
+                            <ul>
+                                {%for categorie in userPageObject.categorieList%}
+                                <li>
+                                <form action="/searchInUserPage" method="post">
+                                    <input hidden value="{{userPageObject.userId}}" name="id">
+                                    <input hidden value="{{userPageObject.id}}" name="pageId">
+                                    <input hidden value="{{categorie}}" name="searchTerm">
+                                    <button type="submit">{{categorie}}</button>
+                                </form>
+                                </li>
+                                {%endfor%}
+                            </ul>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="searchArea">
+                <div class="searchContainer">
+                    <form action="/searchInUserPage" method="post">
+                        <input hidden value="{{userPageObject.userId}}" name="id">
+                        <input hidden value="{{userPageObject.id}}" name="pageId">
+                        <input tpye="text" name="searchTerm" placeholder="Search for video...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="videoArea">
+                <ul class="container inline-b">
+                    {%for mio in userPageObject.videoList%}
+                    <li class="item inline-b-item">
+                        <form action="/playVideo" method="post">
+                            <input hidden value="{{mio.videoUrl}}" name="videoUrl">
+                            <button class="itemButton" type="submit">
+                            <div class="videoContainer">
+                                <video controls muted onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;" src="{{mio.videoUrl}}" type="video/mp4"></video>
+                            </div>
+                            <div class="titleText">{{mio.videoTitle}}</div>
+                            <table>
+                                <tr>
+                                    <td class="ratingText">{{mio.rating}} STARS</td>
+                                    <td class="durationText">Duration: {{mio.videoDuration}}</td>
+                                    <td class="vote">
+                                        <form action="/downVote" method="post">
+                                            <input hidden value="{{mio.id}}" name="downVote">
+                                            <button class="voteButton" type="submit"><img src="/static/images/icons/thumbs-down_small.png"></button>
+                                        </form>
+                                    </td>
+                                    <td class="vote">
+                                        <form action="/upVote" method="post" target="_blank">
+                                            <input hidden value="{{mio.id}}" name="upVote">
+                                            <button class="voteButton" type="submit"><img src="/static/images/icons/thumbs-up_small.png"></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </button>
+                    </form>
+                    </li>
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/impressum">Impressum</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+<script src="/static/js/userPage.js"></script>
+</html>

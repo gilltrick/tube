@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn | Edit User Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/editUserPageStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+    {%if isLogedIn == True%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/userAccount">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    {%endif%}
+    {%if isLogedIn == False%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+    {%endif%}
+</header>
+
+<!--agency gelbaer starts-->
+<section class="home" id="home">
+   <div class="editPageContainer">
+    <div class="left">
+        <h1>Edit your Profile Text</h1>
+        <form action ="/updateUserPageText" method="post">
+            <h2>Enter a new nickname or leaf untouched</h2>
+            <input type="text" class="textInput" value="{{userPageObject.nickName}}" name="nickName">
+            <h2>Enter a new discription text or leaf untouched</h2>
+            <textarea name="userDiscription" placeholder="{{userPageObject.userDiscription}}" cols="15" rows="10"></textarea>
+            <h2>Enter a new catchphrase or leaf untouched</h2>
+            <input type="text" class="textInput" value="{{userPageObject.catchPhrase}}" name="catchPhrase">  
+            <h2>Enter a new categories (sepereate with ,) or leaf untouched</h2>
+            <input type="text" class="textInput" value="userPageObject.categorieList[0]" name="categories"> 
+            <input hidden value={{userPageObject.userId}} name="id">     
+            <button class="updateButton" type="submit">Update</button>
+        </form>
+    </div>
+    <div class="right">
+        <div class="pictureList">
+            <ul class="container inline-b">
+                {%for picture in userPageObject.picturePathList%}
+                <li class="item inline-b-item">
+                    <form action="/deleteUserPagePicture" method="post">
+                        <input hidden value={{picture}} name="picturePath">
+                        <input hidden value={{userPageObject.userId}} name="id">
+                        <button tpye="submit">delete</button>
+                    </form>
+                    <img src="{{picture}}">
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        <form action="/updateUserPictures" enctype=multipart/form-data method="post">
+            <input hidden value="{{userPageObject.userId}}" name="id"> 
+            <input type="file" class="custom-file-input" name="images" multiple>
+            <button class="updateButton" type="submit">Update</button>
+        </form>
+        </div>
+    </div>
+   </div>
+</section>
+
+<!-- footer section starts  -->
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/impressum">Impressum</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+</html>

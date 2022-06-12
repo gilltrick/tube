@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn | Login</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/styles/webguiStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/webgui"><img src="/static/images/icons/reload.png"></a>
+        <a href="/home">Porn</a>
+        <a href="/userAccount">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<section class="database" id="database">
+    <div class="databaseContainer">
+        <div class="infoContainer">
+            Hier steht die info
+        </div>
+        <div class="dbMenu">
+            <div class="menuBtn">
+                <button class="openAddVideoContainer">Add Video</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openRemoveVideoContainer">Remove Video</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openEditVideoContainer">Edit Video</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openVideoListContainer">Video-List</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openAddUserContainer">Add-User</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openRemoveUserContainer">Remove-User</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openEditUserContainer">Edit-User</button>
+            </div>
+            <div class="menuBtn">
+                <button class="openUserListContainer">List-User</button>
+            </div>
+        </div>
+        <div class="addVideoContainer">
+            <div class="menuCategorieTitleText">
+                Add Video to Database
+            </div>
+            <form id="uploadFile" action="/uploadFile" enctype=multipart/form-data method="post">
+                <div class="uploadContainer">
+                        <div class="uploadForm">
+                            <input type="file" class="chooseFileBtn" name="fileToUpload">
+                        </div>
+                    <div class="uploadProgressBar">
+                        <div class="progress" style="height: 30px;width: 90%;display:block;margin-left:auto;margin-right:auto;">
+                            <div id="progressBar" style="height: 30px;" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Title: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="Example Title" name="videoTitle">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Video-Tags: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="enter tags here" name="videoTags">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Discription: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="enter discription" name="discription">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Categories: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="enter categories here" name="categories">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Please select one option: 
+                    </div>
+                    <div class="checkBoxContainer">
+                        <input type="checkbox" class="free" name="command" value="free" id="free">
+                        <label for="free"> Free</label>
+                        <input type="checkbox"  class="trailer" name="command" value="trailer" id="trailer">
+                        <label for="trailer"> Trailer</label>
+                        <input type="checkbox" class="forSale" name="command" value="forSale" id="forSale">
+                        <label for="forSale"> For Sale</label>
+                        <input type="checkbox" class="privateVideo" name="command" value="privateVideo" id="privateVideo">
+                        <label for="privateVideo"> Private</label>
+                    </div>
+                </div>
+                <div class="hiddenDataInputRow">
+                    <div class="dataName">
+                        Price in EUR: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="enter price" name="price">
+                    </div>
+                    <div class="dataName">
+                        Trailer-Id: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="enter categories here" name="trailerId">
+                    </div>
+                </div>
+                <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="removeVideoContainer">
+            <div class="menuCategorieTitleText">
+                Remove Video from Database
+            </div>
+            <form action="/removeFile" method="post">
+            <div class="dataInputRow">
+                <div class="dataName">
+                    ID: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="494ed995c0931def1b67c8ada6cbb94e" name="id">
+                </div>
+            </div>
+            <div class="dataInputRow">
+                <div class="dataName">
+                    Password: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="enter your password" name="password">
+                </div>
+            </div>
+            <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="editVideoContainer">
+            <div class="menuCategorieTitleText">
+                Edit Video in Database
+            </div>
+            <form action="/editFile" method="post">
+            <div class="dataInputRow">
+                <div class="dataName">
+                    File-Name or ID: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="example.mp4 or 494ed995c0931def1b67c8ada6cbb94e" name="fileName">
+                </div>
+            </div>
+            <div class="dataInputRow">
+                <div class="dataName">
+                    Title: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="example title" name="videoTitle">
+                </div>
+            </div>
+            <div class="dataInputRow">
+                <div class="dataName">
+                    Video-Tags: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="enter tags here" name="videoTags">
+                </div>
+            </div>
+            <div class="dataInputRow">
+                <div class="dataName">
+                    Discription: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="enter discription" name="discription">
+                </div>
+            </div>
+            <div class="dataInputRow">
+                <div class="dataName">
+                    Categories: 
+                </div>
+                <div class="dataValueInput">
+                    <input type="text" placeholder="enter categories list" name="categories">
+                </div>
+            </div>
+            <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="videoListContainer">
+            <div class="menuCategorieTitleText">
+                Video-List
+            </div>
+            <div class="listContainer">
+                {%for mio in mioList%}
+                <form action="/playVideo" method="post">
+                <input hidden value="{{mio.videoUrl}}" name="videoUrl">
+                <button type="submit">
+                <div class="videoContainer">
+                    <div class="videoThumbnail">
+                        <img src="{{mio.thumbnailPath}}">
+                    </div>
+                    <div class="videoData">
+                        <div class="videoDataRow">
+                            <div class="dataName">
+                                File-Name: {{mio.videoTitle}}
+                            </div>
+                        </div>
+                        <div class="videoDataRow">
+                            <div class="dataName">
+                                ID: {{mio.id}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </button>
+                </form>
+                {%endfor%}
+            </div>
+            <div class="closeVideoListContainer">
+                X
+            </div>
+        </div>
+        <div class="addUserContainer">
+            <div class="menuCategorieTitleText">
+                Add User to Database
+            </div>
+            <form action="/addUser" method="post">
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Username: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="username" name="username">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Nick-Name: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="nick name" name="nickName">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Password: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="password" placeholder="password" name="password">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        E-Mail: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="email" placeholder="example@mail.com" name="email">
+                    </div>
+                </div>
+                <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="removeUserContainer">
+            <div class="menuCategorieTitleText">
+                Remove User from Database
+            </div>
+            <form action="/removeUser" method="post">
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        User-ID: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="494ed995c0931def1b67c8ada6cbb94e" name="id">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Password: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="password" placeholder="password" name="password">
+                    </div>
+                </div>
+                <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="editUserContainer">
+            <div class="menuCategorieTitleText">
+                Edit User in Database
+            </div>
+            <form action="/editUser" method="post">
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        ID: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="494ed995c0931def1b67c8ada6cbb94e" name="id" requiered>
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Username: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="username" name="username">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Nick-Name: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="nick name" name="nickName">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Password: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="password" name="password">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        E-Mail: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="email" placeholder="example@mail.com" name="email">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Role: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="text" placeholder="current: {{userObject.role}}" name="role">
+                    </div>
+                </div>
+                <div class="dataInputRow">
+                    <div class="dataName">
+                        Current Password: 
+                    </div>
+                    <div class="dataValueInput">
+                        <input type="password" placeholder="current password" name="currentPassword" requiered>
+                    </div>
+                </div>
+                <button class="addToDatabaseBtn" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="userListContainer">
+            <div class="menuCategorieTitleText">
+                User-List
+            </div>
+            <div class="listContainer">
+                {%for user in userList%}
+                <div class="userContainer">
+                    <div class="userData">
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                User-Name: {{user.username}}
+                            </div>
+                        </div>
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                Nick-Name: {{user.nickName}}
+                            </div>
+                        </div>
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                Password: {{user.password}}
+                            </div>
+                        </div>
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                E-Mail: {{user.email}}
+                            </div>
+                        </div>
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                ID: {{user.id}}
+                            </div>
+                        </div>
+                        <div class="userDataRow">
+                            <div class="dataName">
+                                Role: {{user.role}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+            <div class="closeUserListContainer">
+                X
+            </div>
+        </div>
+    </div>
+</section>
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/static/js/webgui.js"></script>
+</html>
