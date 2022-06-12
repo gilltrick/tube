@@ -728,4 +728,4 @@ def protected(fileId):
 
 if __name__ == "__main__":
     database.InitDatabase()
-    app.run(debug=True, host="0.0.0.0", port=5656)
+    app.run(debug=True, host="0.0.0.0", port=7676)
