@@ -1,15 +1,19 @@
-nJoyPorn - Version: 0.2
-Date: 27.05.2022
+nJoyPorn - Version: beta_v0.0
+Date: 12.06.2022
 Author: Patrick Gillmann
 
 Purpose of this application:
 What is nJoyPorn?
     Its a tool to create tubes for adult content.
     You can set it up in a way that it automaticly searches for new content based on user behavior
+    User can create an account, create a page to present them self, they can upload videos and choose if they want to sell them*
+    User can buy ohter users videos and watch or download them
     You get a full stack application.
         1) Webserver
         2) Databases
         3) Scraper
+        4) Web-GUI
+        5) Cryptopayment
 
 1) Webserver:
     Its a flask driven web server 
@@ -17,7 +21,6 @@ What is nJoyPorn?
     Search page
     Result page
     Video-Player page
-    Dashboard page
 
 2) Databases
     a) Main database
@@ -93,7 +96,43 @@ What is nJoyPorn?
         -search by combination of both
         -search in different depth steps
 
-Get started
+4 Web-GUI
+    a) AdminPanle
+       Here can the admin manage the users and content
+    b) UserPanel
+       Here can the user manage their page, favorites, purchased videos etc
+       Create a user page:
+        The user page is a landing page the user can create to summarize their content and present themselfs
+        Other user will search on the main page click on a video. Your landing page is connected to that video
+        If the user gets to your page he can search through your content you have for sale
+       Upload content as, free, trailer or for sale (If you want to create a sale item you have to create a trailer first)
+
+5) Cryptopayment
+    You implement your btc-pay server
+    create an client with the api
+    run the api -loopListen for automated payment processing 
+
+Get started (from Web-GUI)
+
+    #Install the app and downloading rquirements from requirements.txt
+    python setup.py
+    Follow instructions and create a user (the default admin user)
+
+    #Run the server
+    python njoyporn.py
+
+    #Visit your new tube
+    http://localhost:7676
+
+Login to access the Web-GUI:
+    http://localhost:7676/login
+    http://localhost:7676/webgui
+
+    Here can you upload videos to the server
+    Manage the videos*
+    Manage users*
+
+Get started [Terminal / basic]
 
     #Install the app and downloading rquirements from requirements.txt
     python setup.py
@@ -102,7 +141,7 @@ Get started
     python njoyporn.py
 
     #Visit your new tube
-    http://localhost:5001
+    http://localhost:7676
 
 Set up a local database:
 
@@ -149,6 +188,8 @@ Set up a users
         enter username
         enter password
         enter email
+        enter nickname
+        enter role
 
 Analytics
 
@@ -162,3 +203,22 @@ Analytics
         -categorie
         -actors
         -analytics
+
+Advanced terminal functions:
+
+#USERDATABASE
+you can create a user or admin with -newUser
+you can print info about the user and the data uploaded -printUsers, -printVideos
+
+#DATABASE
+you can update the whole content in /static/storage/specials with -addall
+this will skipp data in the database and add new stuff
+you can edit video data in detail
+you can edit comments
+you can print a details data list
+
+#ANALYTICS
+you can print data like poplular categories or actors
+you can easy modify the print function to access all data
+
+*You can easy build the frontend for those functions. I run them from the terminal so feel free to help me to update this app
