@@ -221,4 +221,8 @@ you can print a details data list
 you can print data like poplular categories or actors
 you can easy modify the print function to access all data
 
+#API
+run the api from terminal to automate your payments
+python api.py -listenLoop
+
 *You can easy build the frontend for those functions. I run them from the terminal so feel free to help me to update this app
