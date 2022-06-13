@@ -144,6 +144,12 @@ def EditUser():
 def GetUserNameList():
     return os.listdir(os.getcwd()+"/userDatabase/")
 
+def GetSupportUserObject():
+    global userObjectList
+    for userObject in userObjectList:
+        if userObject.role == "support":
+            return userObject
+
 def LineToUserObject(_line):
     userObject = database.modules.User()
     result = re.search(userPattern, _line)
