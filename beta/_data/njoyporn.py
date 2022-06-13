@@ -535,6 +535,20 @@ def API():
         database.userDatabase.AddVideoToPurchasedList(userId, videoId)
     return "done"
 
+@app.route("/support")
+def support():
+    cookieValue = request.cookies.get("data")
+    username, password = GetCookieData(cookieValue)
+    if database.userDatabase.CheckCredentials(username, password):
+        receiverId = "SUPPORT-USER-ID"
+        userObject = database.userDatabase.GetUserByCredentials(username, password)
+        conversationList = communication.LoadUsersConversations(username)
+        openConversation = communication.LoadConversationIfExisiting(username, database.userDatabase.GetUserById(receiverId).username)
+        if openConversation != None and openConversation.id in userObject.unreadConversationsList:
+            communication.MarkConversationAsRead(openConversation.id, userObject.id)
+        return render_template("messaging.html", openConversation=openConversation, senderId=userObject.id, receiverId=receiverId, conversationList=conversationList)
+    return render_template("error.html", error=database.modules.ErrorMessage("Please login or create an accout", "You need to be loged in to ask for support.")) 
+
 @app.route("/checkOutCard", methods=["post"])
 def checkOutCard():
     cookieValue = request.cookies.get("data")
