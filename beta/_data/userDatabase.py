@@ -691,6 +691,8 @@ def From_GUI_HasPrivileges(_username, _password):
     for user in userObjectList:
         if user.username == _username and user.password == _password:
             if user.role == "admin":
+                return 1000
+            if user.role == "support":
                 return 112
             if user.role == "user":
                 return 12
