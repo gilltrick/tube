@@ -1,5 +1,5 @@
-nJoyPorn - Version: 0.4
-Date: 09.06.2022
+nJoyPorn - Version: 0.2
+Date: 18.06.2022
 Author: Patrick Gillmann
 
 Purpose of this application:
