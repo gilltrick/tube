@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn | Checkout</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/checkOutStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+    {%if isLogedIn == True%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/userAccount">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    {%endif%}
+    {%if isLogedIn == False%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+    {%endif%}
+</header>
+
+<section class="home" id="home">
+    <div class="cardContainer">
+        <div class="infoContainer">
+            <div class="videoThumbnail">
+                <img src="{{metaInformationObject.thumbnailPath}}" alt="empty">
+            </div>
+            <div class="videoData">
+                <div class="titleText">
+                  {{metaInformationObject.videoTitle}}
+                </div>
+                <ul class="container inline-b">
+                <div class="tags">
+                  {%for categorie in metaInformationObject.tagList%}
+                  <li class="item inline-b-item">
+                  <form action="/search" method="post">
+                      <input hidden value="{{categorie}}" name="keyWords">
+                      <button type"submit">
+                          <div class="tagContainer">
+                              {{categorie}}
+                          </div>
+                      </button>
+                  </form>
+                  </li>
+                  {%endfor%}
+                </div>
+                </ul>
+                <div class="data">
+                  <div class="ratingText">
+                    Rating: 96 %
+                  </div>
+                  <div class="viewCounterText">
+                    Views: 964 k
+                  </div>
+                  <div class="durationText">
+                    Duration: 12:33
+                  </div>
+                </div>
+                <div class="discription">
+                  {{metaInformationObject.discription}}
+                </div>
+                <div class="buyVideoContainer">
+                    <div class="videoPrice">
+                      Price: {{metaInformationObject.price}} €
+                    </div>
+                    <div class="buyBTN">
+                      <form action="/buyVideo" method="post">
+                        <input hidden value="{{metaInformationObject.id}}" name="id">
+                        <button type="submit">Buy</button>
+                      </form>
+                    </div>
+                  </div>
+              </div>
+        </div>
+        <div class="cardList">
+            {%for video in cardList%}
+            <div class="videoContainer">
+                <form action="/checkOutCard" method="post">
+                    <input hidden value={{video.id}} name="id">
+                    <button class="listbtn" type="submit">
+                        <div class="videoThumbnail">
+                            <img src="{{video.thumbnailPath}}" alt="empty">
+                        </div>
+                        <div class="videoData">
+                            <div class="videoDataRow">
+                                <div class="dataName">
+                                    File-Name: {{video.videoTitle}}
+                                </div>
+                            </div>
+                            <div class="videoDataRow">
+                                <div class="dataName">
+                                    ID: {{video.id}}
+                                </div>
+                            </div>
+                            <div class="videoDataRow">
+                                <div class="dataName">
+                                    Price: {{video.price}} €
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+                <div class="removeFromCard">
+                    <form action="/removeVideoFromCard" method="post">
+                        <input hidden value="{{video.id}}" name="id">
+                        <button type="submit">remove</button>
+                    </form>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>
+
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/impressum">Impressum</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+</html>

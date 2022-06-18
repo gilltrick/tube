@@ -1,0 +1,5 @@
+Flask
+opencv-python
+fake-headers
+opencv-python-headless==4.1.2.30
+bitpay

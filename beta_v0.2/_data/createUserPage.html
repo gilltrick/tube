@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nJoyPorn | Create User Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/styles/createUserPageStyle.css">
+    <link rel="shortcut icon" href="/static/favIcon.ico">
+</head>
+<body>
+    
+<!-- header section starts  -->
+<header>
+    <a href="/home"><img src="/static/images/Logo_01.png"></a>
+    {%if isLogedIn == True%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/userAccount">Profile</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    {%endif%}
+    {%if isLogedIn == False%}
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fas fa-bars"></label>
+    <nav class="navbar">
+        <a href="/home">Porn</a>
+        <a href="/login">Login</a>
+    </nav>
+    {%endif%}
+</header>
+
+<!--agency gelbaer starts-->
+<section class="home" id="home">
+   <div class="createPageContainer">
+       <div class="titleText">Setup your profile page</div>
+           <form action="/setupUserPage" enctype=multipart/form-data method="post">
+            <div class="dataContainer">
+            <label>Enter your Nick</label><br>
+            <input type="text" class="textInput" placeholder="nickname will be public shown" name="nickName" required>
+            </div>
+            <br>
+            <div class="dataContainer">
+                <label>Tell the peopole who you are and what you want to sell</label>
+               <textarea required name="userDiscription" id="" cols="30" rows="10"></textarea>
+            </div>
+            <br>
+            <div class="dataContainer">
+               <label>Say it in one line</label><br>
+               <input type="text" class="textInput" placeholder="Your catchphrase" name="catchPhrase">
+            </div>
+            <br>
+            <div class="dataContainer">
+                <label>Say it in one line</label><br>
+                <input type="text" class="textInput" placeholder="Enter categories you are in" name="categories">
+             </div>
+                <div class="imageUpload">
+                <input type="file" class="custom-file-input" name="images" multiple>
+            </div>
+            <button type="submit">Send</button>
+           </form>
+       </div>
+   </div>
+</section>
+
+<!-- footer section starts  -->
+<div class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <table class="footerContent">
+                <tr>
+                    <td class="quickLink">
+                        <a href="#home">Home</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/login">Login</a>
+                    </td>
+                    <td class="quickLink">
+                        <a href="/impressum">Impressum</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="devNote">
+    This site is for demonstration purpose only - I offer custom webservices including frontend, backend, databases, storage, hosting, cryptopayment and more. 
+</div>
+<div class="bg"></div>
+<div class="star-field">
+<div class="layer"><h1></div>
+<div class="layer"></div>
+<div class="layer"></div>
+</body>
+{%endblock%}
+</html>
